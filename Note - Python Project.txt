@@ -1,0 +1,13 @@
+Day 08/20:
+fetch_california_housing là 1 function có sẵn trong sklearn, nó là 1 bộ data được thu thập từ 1990.
+as_frame = True là 1 tham số (parameter) của function fetch_california_housing 
+
+Về cơ bản as_frame là 1 tham số dùng để làm cho dữ liệu dễ đọc và phân tích, nó giúp dữ lieu nằm theo cột, hàng,... 
+Nếu không gọi as_frame thì nó sẽ mặc định false nên dữ liệu sẽ chỉ có số rất khó kiểm soát
+
+Việc chia 80/20 là để model học và đọc dữ liệu không bị theo kiểu thuộc lòng, ta test và kiểm tra nó với 80% dữ liệu, và khi nó đã làm quen với dữ liệu đó thì ta sẽ đem nó ra test với 20% dữ liệu còn lại
+Nếu nó đoán cận chính xác khi kiểm tra 20% dữ liệu còn lại thì có thể cho là tốt không thì phải chỉnh sửa.
+
+Linear Regression là 1 model cơ bản với công thức cộng tuyến tính của các features
+Với công thức: Giá nhà = w1 * MedInc + w2 * HouseAge + w3 * AveRooms + ... + b
+Trong đó với các w1, w2,... là hệ số, b gọi là bias là các giá trị mà model tìm ra trong lúc train với 80% dữ liệu
