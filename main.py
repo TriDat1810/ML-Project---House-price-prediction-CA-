@@ -4,6 +4,7 @@ from sklearn.datasets import fetch_california_housing #Thư viện sklearn.datas
 from sklearn.model_selection import train_test_split #Model selection: train_test_split để chia dữ liệu thành tập huấn luyện và tập kiểm tra
 from sklearn.linear_model import LinearRegression # Mô hình hồi quy tuyến tính
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score # Các metric để đánh giá model
+from sklearn.ensemble import RandomForestRegressor # Mô hình rừng ngẫu nhiên (Random Forest)
 
 # Load dataset, as_frame=True để trả về dạng pandas DataFrame luôn
 # (thay vì mảng numpy thô, khó đọc)
@@ -53,3 +54,16 @@ r2 = r2_score(y_test, y_pred)
 print(f"MAE: {mae:.3f}")
 print(f"RMSE: {rmse:.3f}")
 print(f"R²: {r2:.3f}")
+
+rf_model = RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
+rf_model.fit(X_train, y_train)
+
+y_pred_rf = rf_model.predict(X_test)
+
+mae_rf = mean_absolute_error(y_test, y_pred_rf)
+rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
+r2_rf = r2_score(y_test, y_pred_rf)
+
+print(f"MAE: {mae_rf:.3f}")
+print(f"RMSE: {rmse_rf:.3f}")
+print(f"R²: {r2_rf:.3f}")
