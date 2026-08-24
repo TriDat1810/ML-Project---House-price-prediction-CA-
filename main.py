@@ -33,27 +33,27 @@ print(X_train.shape)
 print(X_test.shape)
 
 # Bước 1: tạo 1 model rỗng (chưa học gì cả)
-model = LinearRegression()
+#model = LinearRegression()
 
 # Bước 2: cho model học từ tập train
 # .fit() chính là bước "training" — model tự tìm ra w1, w2, w3... và b
 # tối ưu nhất, sao cho dự đoán trên X_train gần với y_train nhất có thể
-model.fit(X_train, y_train)
+#model.fit(X_train, y_train)
 
-print("Model đã học xong!")
+#print("Model đã học xong!")
 
-y_pred = model.predict(X_test)
+#y_pred = model.predict(X_test)
 
-print(y_pred[:5])   # xem thử 5 giá trị đầu model đoán
-print(y_test[:5].values)   # so với 5 giá trị thật tương ứng
+#print(y_pred[:5])   # xem thử 5 giá trị đầu model đoán
+#print(y_test[:5].values)   # so với 5 giá trị thật tương ứng
 
-mae = mean_absolute_error(y_test, y_pred)
-rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-r2 = r2_score(y_test, y_pred)
+#mae = mean_absolute_error(y_test, y_pred)
+#rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+#r2 = r2_score(y_test, y_pred)
 
-print(f"MAE: {mae:.3f}")
-print(f"RMSE: {rmse:.3f}")
-print(f"R²: {r2:.3f}")
+#print(f"MAE: {mae:.3f}")
+#print(f"RMSE: {rmse:.3f}")
+#print(f"R²: {r2:.3f}")
 
 rf_model = RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
 rf_model.fit(X_train, y_train)
@@ -67,3 +67,8 @@ r2_rf = r2_score(y_test, y_pred_rf)
 print(f"MAE: {mae_rf:.3f}")
 print(f"RMSE: {rmse_rf:.3f}")
 print(f"R²: {r2_rf:.3f}")
+
+importances = pd.Series(rf_model.feature_importances_, index=X.columns)
+importances = importances.sort_values(ascending=False)
+
+print(importances)

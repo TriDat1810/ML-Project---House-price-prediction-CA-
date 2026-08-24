@@ -12,6 +12,7 @@ Nếu nó đoán cận chính xác khi kiểm tra 20% dữ liệu còn lại th�
 Linear Regression là 1 model cơ bản với công thức cộng tuyến tính của các features
 Với công thức: Giá nhà = w1 * MedInc + w2 * HouseAge + w3 * AveRooms + ... + b
 Trong đó với các w1, w2,... là hệ số, b gọi là bias là các giá trị mà model tìm ra trong lúc train với 80% dữ liệu
+*Đây cũng là nhược điểm của Linear Regression vì chỉ có duy nhất công thức cố định không thể rẽ nhánh điều kiện
 
 các giá trị:
 MAE là trung bình model đoán lệch 0.5(hay 50.000 đô theo đơn vị gốc là 100.000 nên 0.5 là 50.000)
@@ -19,3 +20,13 @@ RMSE là Giống hệt MAE là đo xem trung bình model đoán lệch bao nhiê
 Đơn giản mae là cho biết độ lệch, còn rmse sẽ tự động trừng phạt với cơ chế mũ 2, lỗi nhỏ thì mũ 2 lên không sao nhưng lỗi lớn mà mũ 2 là khủng hoảng
 R^2 thì đơn giản là khung điểm đánh giá mức độ chuẩn xác cho cơ chế dự đoán, 0 là tệ tự đoán còn hơn, 0.8 tốt phụ thuộc các yếu tố ngoại cảnh phong thủy,... , 1 rất ích vì khả năng tuyệt đối thường là đọc thuộc lòng
 
+Line 58 in main.py
+Sử dụng Random Forest, cơ chế "Cây rừng" hay rẽ nhánh của các cây sẽ cải thiện và mở ra nhiều các "khả năng" được kiểm chứng
+Code tại line này: n_estimators=100 tạo ra 100 cây khác nhau với mỗi cây được train 1 tập dữ liệu được lấy ngẫn nhiên
+Với 100 cây thì mỗi cây có mỗi hướng khác nhau, khi so sánh và lấy trung bình thì các sai số sẽ triệt tiêu lẫn nhau
+---
+n_jobs=-1 → dùng tất cả CPU core của máy để train 100 cây song song, cho nhanh hơn (không ảnh hưởng tới kết quả, chỉ ảnh hưởng tốc độ).
+random_state=42 → giống lúc chia train/test, cố định yếu tố ngẫu nhiên để mỗi lần chạy lại ra kết quả giống nhau.
+
+X = df.drop(columns=["MedHouseVal"])   # X ở đây là các giá trị dùng để train và predict (cần để đoán)
+y = df["MedHouseVal"] # Y ở đây là giá trị sau khi train sẽ predict ra (muốn ra kết quả), y_train và y_test ở đây là kết quả của x_train và x_test
